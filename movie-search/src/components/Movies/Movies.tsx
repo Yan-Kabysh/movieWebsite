@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadMovies } from "../../redux/actionCreaters/moviesActionCreators";
 import { IMovieData, IStoreState } from "../../types";
 import { Movie } from "./Movie";
+import "./Movies.css"
 
 const Movies = () => {
-    const limit = 20;
-    const page = 10; // Исправлено на 1, если это не ошибка
+    const limit = 30;
+    const page = 13;
 
     const dispatch = useDispatch();
 
@@ -18,7 +19,7 @@ const Movies = () => {
     console.log("component", moviesData);
 
     return (
-        <div>
+        <div className="movies">
             {moviesData && moviesData.map((movie: IMovieData) => (
                 <Movie key={movie.id} data={movie} />
             ))}
