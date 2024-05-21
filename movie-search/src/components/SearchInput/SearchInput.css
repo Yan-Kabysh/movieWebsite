@@ -1,0 +1,24 @@
+.search-input-container{
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.clear-button{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear-button svg {
+    width: 16px;
+    height: 16px;
+  }

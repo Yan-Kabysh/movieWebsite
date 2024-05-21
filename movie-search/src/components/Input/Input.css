@@ -1,0 +1,5 @@
+.SearchInut{
+    width: 100%;
+    padding-right: 30px; /* пространство для кнопки */
+    box-sizing: border-box;
+}

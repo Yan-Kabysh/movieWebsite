@@ -1,0 +1,11 @@
+.mainLogo{
+    display: flex;
+}
+
+.logo-movie{
+    color: purple;
+}
+
+.logo-search{
+    color: black;
+}
