@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../../../fonts/Exo2/static/Exo2-Regular.ttf') format('truetype'); /* путь к вашему шрифту и его формату */
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.logo{
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: #7B61FF;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userLogoName{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 20px;
+}
+
+.userName{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #242426;
+
+}
+
+.user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}

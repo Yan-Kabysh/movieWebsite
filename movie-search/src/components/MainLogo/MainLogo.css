@@ -1,11 +1,26 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../../fonts/Exo2/static/Exo2-Regular.ttf') format('truetype'); /* путь к вашему шрифту и его формату */
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .mainLogo{
     display: flex;
+    margin: 0 113px 0 64px;
 }
 
 .logo-movie{
-    color: purple;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #7B61FF;
 }
 
 .logo-search{
     color: black;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
 }

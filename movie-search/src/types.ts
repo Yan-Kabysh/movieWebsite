@@ -9,6 +9,17 @@ interface IGenre {
     name: string;
 }
 
+export enum TABS{
+    HOME = "home",
+    TRENDS = "trends",
+    FAVORITES = "favorites",
+    SETTINGS = "settings"
+}
+
+interface ITansReducer{
+    tab: TABS
+}
+
 interface IMovieData{ 
         id: number,
         "name": string,
@@ -61,6 +72,9 @@ interface IMovieDataResponse{
 interface ILoadMovies{
     limit: number,
     page: number,
+    year?: number,
+    rating?:string
+    votes?: string,
 }
 
 interface IStoreState{
@@ -71,6 +85,16 @@ interface MovieProps {
     data: IMovieData;
 }
   
+interface IUserName {
+    children: string,
+}
+
+interface ISearchData{
+    limit: number,
+    page: number,
+    search: string,
+   
+}
 
 export type {
     IInput,
@@ -79,4 +103,7 @@ export type {
     ILoadMovies,
     IStoreState,
     MovieProps,
+    IUserName,
+    ITansReducer,
+    ISearchData,
 }

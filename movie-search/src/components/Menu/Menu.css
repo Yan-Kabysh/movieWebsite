@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../../fonts/Exo2/static/Exo2-Regular.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+.menuBlock {
+    width: 123px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Для всех элементов, когда один из них в состоянии наведения */
+.menuBlock:hover .menuItem {
+    color: #80858B;
+}
+
+.menuItem {
+    color: #80858B;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none; 
+    transition: color 0.3s ease;
+}
+
+/* Для элемента в состоянии наведения */
+.menuItem:hover {
+    color: #7B61FF; 
+}
+
+/* Чтобы сохранить цвет при наведении */
+.menuBlock:hover .menuItem:hover {
+    color: #7B61FF; 
+}
+
+.menuIcon {
+    color: inherit; 
+    transition: color 0.3s ease;
+}
+
+.itemmenuText {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: inherit; 
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+.activeLink {
+    color: #7B61FF;
+}

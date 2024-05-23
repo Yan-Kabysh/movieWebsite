@@ -1,13 +1,19 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Header, MainLogo, Movies } from './components';
+import { FavoritesPage, Header, MainLogo, MainPage, Menu, Movies, SettingsPage, TrendsPage } from './components';
 
 const  App = () => {
   return (
    <>
         <Routes>
           <Route path='/'>
-            <Route path='movies' element={<Movies/>}/>
+            <Route path='movies'>
+              <Route path='home' element={<MainPage/>}></Route>
+              <Route path='trends' element={<TrendsPage/>}></Route>
+              <Route path='favorites' element={<FavoritesPage/>}></Route>
+              <Route path='settings' element={<SettingsPage/>}></Route>
+
+            </Route>
 
           </Route>
 

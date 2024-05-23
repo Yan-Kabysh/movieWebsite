@@ -12,7 +12,6 @@ const initialState: IMovieDataResponse = {
 const moviesReducer = (state = initialState, action: any) =>{
     switch(action.type){
         case SET_MOVIES:{
-            console.log('SET_MOVIES action received:', action);
             return({
                 ...state,
                 docs: action.movies

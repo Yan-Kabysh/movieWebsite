@@ -5,10 +5,12 @@ import "./Movie.css";
 
 
 const Movie = ({ data }: MovieProps) => {
+    console.log(data)
+    const rating = data.rating.imdb === 0 ? data.rating.kp : data.rating.imdb
     return (
         <div className="movie">
-               <p className={"rating " + ((data.rating.imdb) >= 7 ? "green" : (data.rating.imdb >= 5 ? "yellow" : "red"))}>{data.rating.imdb}</p>
-            {data.poster?.url === undefined ?
+               <p className={"rating " + ((rating) >= 7 ? "green" : (rating >= 5 ? "yellow" : "red"))}>{rating}</p>
+            {data.poster?.url === undefined || data.poster?.url === null ?
             <EmptyPoster/> :
             
             <img src={data.poster.url} alt={data.name} className="posterImage"/>

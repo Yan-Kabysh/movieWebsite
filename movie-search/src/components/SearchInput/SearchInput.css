@@ -1,7 +1,16 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../../fonts/Exo2/static/Exo2-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .search-input-container{
     position: relative;
     width: 100%;
-    max-width: 400px;
+    max-width:738px;
+    margin-right: 40px;
 }
 
 .clear-button{
@@ -22,3 +31,17 @@
     width: 16px;
     height: 16px;
   }
+
+  .SearchInut{
+    border: 2px solid #AFB2B6;
+    /* color: #AFB2B6; */
+    border-radius: 10px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    height: 54px;
+  }
+  
+.SearchInut::placeholder{
+    padding-left: 20px;
+}

@@ -8,7 +8,8 @@ const Input = ({placeholder, className, onChange, value}: IInput) =>{
             placeholder={placeholder} 
             className={className} 
             value={value}  
-            onChange = {(e) => onChange(e)}/>
+            onChange = {(e) => onChange(e)}
+            />
         </>
     )
 }
