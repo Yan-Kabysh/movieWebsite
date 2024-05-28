@@ -2,23 +2,22 @@ import { useSelector } from "react-redux"
 import { IStoreState } from "../../types"
 import { Header } from "../Header"
 import { Menu } from "../Menu"
-import { Movies } from "../Movies"
-import "./MainPage.css"
+import { SelectedMovie } from "../SelectedMovie/SelectedMovie"
 
-
-const MainPage = () =>{
+const SelectedMoviePage = () =>{
 
     const theme = useSelector((state: IStoreState) => state.ui.theme)
+
 
     return(
         <div className={"MainPage " + theme}>
             <Header/>
             <div className="MainPageContent">
                 <Menu/>
-                <Movies limit={100} page={1}/>
+                <SelectedMovie/>
             </div>
         </div>
     )
 }
 
-export { MainPage }
+export { SelectedMoviePage }

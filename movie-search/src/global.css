@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh; 
+  }
+  
+  .Dark{
+    background-color: black;
+    color: white;
+  }
+
+  .Dark input {
+    background-color: #323537;
+    color: white;
+    border: none;
+  }
+
+  .Dark h2, .Dark h3 {
+    
+    color: white;
+  }
+
+  .Dark .settings-input-container-theme, .Dark .settings-input-grid-container, .Dark  .settings-input-container{
+    background-color: #242426;
+  }
+
+  .Dark .userName, .Dark .movieName{
+    color: white;
+  }
+
+  input{
+    padding-left: 20px;
+  }
+
+  .Dark .filtersBlock{
+    background-color: #242426;
+  }

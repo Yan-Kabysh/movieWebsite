@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../../fonts/Exo2/static/Exo2-Regular.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.filtersBlock{
+    height: 100vh;
+    width: 30%;
+    background-color: #AFB2B6;;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    border-radius: 10px 0 0 10px;
+    padding: 20px;
+}
+
+.filterBlockTitle{
+    display: flex;
+    justify-content: space-between;
+}
+
+.closeFiltersBtn{
+    border: none;
+    background-color: transparent;
+}
+
+.sort-options {
+    display: flex;
+    align-items: center;
+  }
+  
+  .sort-options span {
+    margin-right: 10px;
+  }
+  
+  .sort-option {
+    display: none;
+  }
+  
+  .sort-option-label {
+    padding: 10px 20px;
+    border: 1px solid #555;
+    background-color: #3a3a3a;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .sort-option:checked + .sort-option-label {
+    background-color: #555;
+  }
+
+  .titleFilters{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.h3Filters{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 3px;
+}
+
+.filtersBtn{
+    width: 45%;
+    height: 56px;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 56px;
+    font-family: 'Exo 2', sans-serif;
+    color: white;
+    border: none;
+}
+
+.grey{
+    background-color: #323537;
+}
+
+.purple{
+    background-color: #7B61FF;
+}
+
+.filtersBtnContainer{
+    display: flex;
+    gap: 6%;
+    margin-top: 20px;
+}
+
+.multi-select {
+    width: 95%;
+    font-family: 'Exo 2', sans-serif;
+
+}
+
+.input-cont{
+    display: flex;
+    gap: 2%;
+}

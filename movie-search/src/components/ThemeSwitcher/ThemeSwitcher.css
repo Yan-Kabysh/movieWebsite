@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Добавляем явное позиционирование */
+    background-color: transparent;
+
+  }
+  
+  .themeToggle {
+    background-color: white;
+    width: 70px;
+    height: 40px;
+    border-radius: 200px;
+    cursor: pointer;
+    position: relative; /* Добавляем явное позиционирование */
+    transition: 0.3s;
+  }
+  
+  .themeToggle::before {
+    position: absolute;
+    content: "";
+    background-color: black;
+    width: 30px;
+    height: 30px;
+    border-radius: 200px;
+    margin: 5px;
+    transition: 0.3s;
+  }
+  
+  .inputToggle:checked + .themeToggle {
+    background-color: #7B61FF;
+  }
+  
+  .inputToggle:checked + .themeToggle::before {
+    transform: translateX(30px);
+    background-color: white;
+  }
+
+.inputToggle{
+    display: none;
+}
+  

@@ -1,0 +1,108 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../../fonts/Exo2/static/Exo2-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ratings-block{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.ratingItem{
+    background-color: gray;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 8px;
+}
+
+.ratingSelectedMovie{
+    width: 37px;
+    height: 28px;
+    border-radius: 6px;
+    text-align: center;
+    color: white;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
+}
+
+.movieDataList {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px 40px; 
+}
+
+.movieDataListItem {
+    display: contents; 
+}
+
+.movieDataListItem p {
+    margin: 0;
+}
+
+.movieDataListItem .title {
+    font-weight: bold;
+}
+
+.selectedMovieBlock{
+    display: flex;
+    gap: 42px;
+    width: 70%;
+}
+
+.selectedMoviePosterWithButtons{
+    max-width: 266px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.selectedMovieBtns{
+    display: flex;
+    gap: 1px;
+}
+
+.selectedMovieButton{
+    width: 50%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    background-color: gray;
+}
+
+.selectedMovieDescr{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.selectedMovieName{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.movieDataListItemName{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #AFB2B6;
+}
+
+.movieDataListItemValue{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}

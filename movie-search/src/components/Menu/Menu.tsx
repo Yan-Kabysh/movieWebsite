@@ -1,10 +1,14 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { IStoreState } from "../../types";
 import { FavoritesIcon, HomeIcon, SettingIcon, TrendsIcon } from "../Icons";
 import "./Menu.css";
 
 const Menu = () => {
+
+    const theme = useSelector((state: IStoreState) => state.ui.theme)
     return (
-        <div className="menuBlock">
+        <div className={"menuBlock " + theme}>
             <NavLink to="/movies/home" end className={({ isActive }) => isActive ? "menuItem activeLink" : "menuItem"}>
                 <HomeIcon/>
                 <span className="itemmenuText">Home</span>

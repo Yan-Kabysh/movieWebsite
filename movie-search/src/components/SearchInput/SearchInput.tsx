@@ -2,14 +2,17 @@ import { useState } from "react"
 import { Input } from "../Input"
 import "./SearchInput.css"
 import { FaTimes } from 'react-icons/fa';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { searchMovies } from "../../redux/actionCreaters/moviesActionCreators";
+import { setFiltersState } from "../../redux/actionCreaters/uiActionCreaters";
+import { IStoreState } from "../../types";
+import { Filters } from "../Filters";
 
 
 const SearchInput = () => {
 
     const dispatch = useDispatch()
-
+    const filtersState = useSelector((state: IStoreState) => state.ui.filtersState)
   
 
     const [SearchInputState, setSearchinrutState] = useState("")
@@ -28,10 +31,11 @@ const SearchInput = () => {
               }}
             onChange = {(e: any) => setSearchinrutState(e.target.value)}/>
             {SearchInputState && (
-                <button onClick={() => setSearchinrutState("")} className="clear-button">
+                <button onClick={() => dispatch(setFiltersState(!filtersState))} className="clear-button">
                     <FaTimes />
-      </button>
+                </button>
       )}
+      {filtersState && <Filters/>}
         </div>
     )
 }

@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'Exo 2';
+    src: url('../../fonts/Exo2/static/Exo2-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.settings-h2{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+    margin-top: 0;
+}
+
+.settings-h3{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;   
+    color: black;
+}
+
+.settings-input-container{
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    padding: 20px;
+    background-color: #AFB2B6;
+    border-radius: 10px;
+    padding-left: 40px;
+}
+
+.settings-input-container-theme{
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    padding-left: 40px;
+    background-color: #AFB2B6;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-input{
+    width: 400px;
+    height: 56px;
+    border-radius: 10px;
+    border: 2px solid #AFB2B6;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.settings-content{
+    max-width: 900px;
+    width: 100%;
+}
+
+.settings-input-grid-container{
+    display: grid;
+    grid-template-columns: auto auto; /* Два столбца */
+    grid-template-rows: auto auto; /* Две строки */
+    grid-gap: 10px; /* Расстояние между элементами */
+}
+
+.settings-input-grid-container-item{
+    width: 400px;
+}
+
+.settings-input-grid-container-item:nth-child(3) {
+    grid-row: 2; /* Элемент занимает вторую строку */
+    grid-column: 2 / span 2; /* Элемент начинается со второго столбца и занимает два столбца */
+  }
+
+.settings-input-grid-container{
+    width: 100%;
+    background-color: #AFB2B6;
+    border-radius: 10px;
+    padding: 20px;
+    padding-left: 40px;
+}
+
+.settings-content{
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+}
+
+
+
+.settings-span{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+
+}
+
+.settings-save-btm {
+    width: 266px;
+    height: 56px;
+    border-radius: 10px;
+    background-color: #7B61FF;
+    color: white;
+    text-align: center;
+    line-height: 56px;
+    border: none;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 693px;
+    transition: background-color 0.3s; 
+}
+
+.settings-save-btm:hover {
+    background-color: #6350db; 
+    cursor: pointer;
+}
+
+
+.settings-container-big{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { loadMovies } from "../../redux/actionCreaters/moviesActionCreators";
 import { IMovieData, IStoreState } from "../../types";
 import { Movie } from "./Movie";
@@ -19,7 +20,9 @@ const Movies = ({ limit = 50, page = 1 , year, rating, votes}: any) => {
     return (
         <div className="movies">
             {moviesData && moviesData.map((movie: IMovieData) => (
-                <Movie key={movie.id} data={movie} />
+                <NavLink to = {"/movies/" + movie.id} className="NavLink">
+                    <Movie key={movie.id} data={movie} />
+                </NavLink>
             ))}
         </div>
     );

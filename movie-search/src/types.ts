@@ -20,6 +20,11 @@ interface ITansReducer{
     tab: TABS
 }
 
+interface IStoreState{
+    movies: IMovieDataResponse,
+    ui: IUIState,
+}
+
 interface IMovieData{ 
         id: number,
         "name": string,
@@ -67,6 +72,7 @@ interface IMovieDataResponse{
     "limit": number,
     "page": number,
     "pages": number
+    movie?: ISelectedMovie
 }
 
 interface ILoadMovies{
@@ -75,11 +81,17 @@ interface ILoadMovies{
     year?: number,
     rating?:string
     votes?: string,
+    sortField?: string,
+    sortType?: string,
+    genre?: any,
+    yearStateFrom?: string,
+    yearStateTo?: string,
+    ratingStateFrom?: string,
+    ratingStateTo?: string,
+    country?: any
 }
 
-interface IStoreState{
-    movies: IMovieDataResponse
-}
+
 
 interface MovieProps {
     data: IMovieData;
@@ -93,8 +105,119 @@ interface ISearchData{
     limit: number,
     page: number,
     search: string,
-   
 }
+
+export enum THEME_TYPES{
+    LIGHT = "Light",
+    DARK = "Dark"
+}
+
+interface IUIState{
+    theme: THEME_TYPES,
+    filtersState: boolean,
+}
+
+interface ISelectedMovieNames{
+    "name": string,
+    "language": string,
+    "type": string
+}
+
+interface IPerson{
+    "id": number,
+    "photo": string,
+    "name": string,
+    "enName": string,
+    "description": string,
+    "profession": string,
+    "enProfession": string
+}
+
+interface IWatchability{
+    "name": string,
+    "logo": {
+      "url": string
+    },
+    "url": string
+}
+
+interface IAudienceCountry{
+    "count": number,
+    "country": string
+}
+
+interface ICountry{
+    name: string
+}
+
+interface ISelectedMovie{
+    "id": number,
+    "externalId": {
+      "kpHD": string
+    },
+    "name": string,
+    "alternativeName": string,
+    "enName": string,
+    "names": ISelectedMovieNames[],
+    "type": string,
+    "typeNumber": number,
+    "year": number,
+    "description": string,
+    "shortDescription": string,
+    "slogan": string,
+    "status": string,
+    "rating": {
+      "kp": number,
+      "imdb": number,
+      "filmCritics": number,
+      "russianFilmCritics": number,
+      "await": string
+    },
+    "votes": {
+      "kp": number,
+      "imdb": number,
+      "filmCritics": number,
+      "russianFilmCritics": number,
+      "await": number
+    },
+    "movieLength": number,
+    "totalSeriesLength": number,
+    "seriesLength": number,
+    "ratingMpaa": string,
+    "ageRating": number,
+    "poster": {
+      "url": string,
+      "previewUrl": string
+    },
+    "backdrop": {
+      "url": string,
+      "previewUrl": string
+    },
+    "genres": IGenre[],
+    "countries": ICountry[],
+    "persons": IPerson[],
+    "budget": {
+      "currency": string,
+      "value": number
+    },
+    "premiere": {
+      "country": string,
+      "digital": string,
+      "cinema": string
+    },
+    "watchability": {
+      "items": IWatchability[]
+    },
+    "top10": number,
+    "top250": number,
+    "isSeries": boolean,
+    "audience": IAudienceCountry[],
+    "ticketsOnSale": boolean,
+    "lists": string[],
+    "networks": string,
+    "createdAt": string,
+    "updatedAt": string
+  }
 
 export type {
     IInput,
@@ -106,4 +229,6 @@ export type {
     IUserName,
     ITansReducer,
     ISearchData,
+    IUIState,
+    ISelectedMovie,
 }

@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 56px;
+    min-height: 100vh; 
+
 }
 
 .MainPageContent{
@@ -9,3 +11,4 @@
     margin-left: 64px;
     gap: 200px
 }
+

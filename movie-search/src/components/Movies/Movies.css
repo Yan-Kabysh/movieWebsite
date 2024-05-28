@@ -3,3 +3,9 @@
     gap: 40px;
     flex-wrap: wrap;
 }
+
+.NavLink {
+    text-decoration: none;
+    display: block; 
+    width: 266px;
+}

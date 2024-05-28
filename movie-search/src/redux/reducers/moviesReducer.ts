@@ -1,5 +1,5 @@
 import { IMovieData, IMovieDataResponse } from "../../types";
-import { SET_MOVIES } from "../actionTypes/moviesActionTypes";
+import { SET_MOVIES, SET_SELECTED_MOVIE } from "../actionTypes/moviesActionTypes";
 
 const initialState: IMovieDataResponse = {
     "docs": [] as IMovieData[],
@@ -15,6 +15,12 @@ const moviesReducer = (state = initialState, action: any) =>{
             return({
                 ...state,
                 docs: action.movies
+            })
+        }
+        case SET_SELECTED_MOVIE:{
+            return({
+                ...state,
+                movie: action.movie
             })
         }
         default:{

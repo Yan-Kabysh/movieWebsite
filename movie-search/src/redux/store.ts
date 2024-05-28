@@ -3,6 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import { all } from 'redux-saga/effects';
 import { watcherMovies } from "./actionCreaters/moviesActionCreators";
 import { moviesReducer } from "./reducers/moviesReducer";
+import { uiReducer } from "./reducers/uiReducer";
 
 
 const middleWare = createSagaMiddleware()
@@ -15,6 +16,7 @@ function* rootSaga(){
 const store =  createStore(
     combineReducers({
         movies: moviesReducer,
+        ui: uiReducer,
     }),{},
     applyMiddleware(middleWare)
 );
