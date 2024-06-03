@@ -6,7 +6,7 @@ import { IMovieData, IStoreState } from "../../types";
 import { Movie } from "./Movie";
 import "./Movies.css"
 
-const Movies = ({ limit = 50, page = 1 , year, rating, votes}: any) => {
+const Movies = ({ limit, page, year, rating, votes}: any) => {
    
 
     const dispatch = useDispatch();

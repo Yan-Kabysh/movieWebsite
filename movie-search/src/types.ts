@@ -23,6 +23,7 @@ interface ITansReducer{
 interface IStoreState{
     movies: IMovieDataResponse,
     ui: IUIState,
+    user: IUserState,
 }
 
 interface IMovieData{ 
@@ -73,6 +74,8 @@ interface IMovieDataResponse{
     "page": number,
     "pages": number
     movie?: ISelectedMovie
+    search?: string,
+    isSearch?: boolean
 }
 
 interface ILoadMovies{
@@ -88,9 +91,20 @@ interface ILoadMovies{
     yearStateTo?: string,
     ratingStateFrom?: string,
     ratingStateTo?: string,
-    country?: any
+    country?: any,
+
+}
+interface ISignUpUser{
+  username: string,
+  email: string,
+  password: string,
 }
 
+interface ISignUp {
+  username: string,
+  password: string,
+  email: string,
+}
 
 
 interface MovieProps {
@@ -216,9 +230,28 @@ interface ISelectedMovie{
     "lists": string[],
     "networks": string,
     "createdAt": string,
-    "updatedAt": string
+    "updatedAt": string,
+    "similarMovies": IMovieData[]
   }
 
+  interface IUserState {
+    user: IUser
+}
+interface IUser {
+  id: number,
+  username: string,
+  email: string,
+}
+
+interface IChangePassword{
+  id: number,
+  currentPassword: string,
+  newPassword: string
+}
+
+  interface RecomandationProps {
+    data: IMovieData[]
+  }
 export type {
     IInput,
     IMovieData,
@@ -231,4 +264,10 @@ export type {
     ISearchData,
     IUIState,
     ISelectedMovie,
+    RecomandationProps,
+    ISignUpUser,
+    IUserState,
+    IUser,
+    ISignUp,
+    IChangePassword
 }

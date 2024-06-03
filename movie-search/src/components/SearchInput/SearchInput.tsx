@@ -1,43 +1,58 @@
-import { useState } from "react"
-import { Input } from "../Input"
-import "./SearchInput.css"
+import { useEffect, useState } from "react";
 import { FaTimes } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
-import { searchMovies } from "../../redux/actionCreaters/moviesActionCreators";
-import { setFiltersState } from "../../redux/actionCreaters/uiActionCreaters";
+import { searchMovies, setIsSearch } from "../../redux/actionCreaters/moviesActionCreators";
 import { IStoreState } from "../../types";
+import { useNavigate } from "react-router-dom";
+import "./SearchInput.css"
+import { setFiltersState } from "../../redux/actionCreaters/uiActionCreaters";
 import { Filters } from "../Filters";
-
+import { FiltersIcon } from "../Icons";
 
 const SearchInput = () => {
+    const [searchInProgress, setSearchInProgress] = useState(false);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const { limit, page } = useSelector((state: IStoreState) => state.movies);
     const filtersState = useSelector((state: IStoreState) => state.ui.filtersState)
-  
 
-    const [SearchInputState, setSearchinrutState] = useState("")
+    const navigate = useNavigate();
+    const [searchInputState, setSearchInputState] = useState("");
 
-    return(
+    useEffect(() => {
+        if (searchInProgress) {
+            navigate("/movies/search");
+            setSearchInProgress(false);
+        }
+    }, [searchInProgress, navigate]);
+
+    const handleSearch = () => {
+        dispatch(setIsSearch(true));
+        dispatch(searchMovies({ limit, page, search: searchInputState }));
+        setSearchInProgress(true);
+    };
+
+    return (
         <div className="search-input-container">
-            <input 
-            placeholder="Search" 
-            className="SearchInut"
-            value = {SearchInputState}
-            onKeyDown = {(e: any) => {
-                console.log("enter")
-                if(e.key === 'Enter'){
-                    dispatch(searchMovies({limit: 20, page: 1, search: SearchInputState}))
-                  }
-              }}
-            onChange = {(e: any) => setSearchinrutState(e.target.value)}/>
-            {SearchInputState && (
+            <input
+                placeholder="Search"
+                className="SearchInput"
+                value={searchInputState}
+                onKeyDown={(e: any) => {
+                    if (e.key === 'Enter') {
+                        handleSearch();
+                    }
+                }}
+                onChange={(e: any) => setSearchInputState(e.target.value)}
+            />
+           
                 <button onClick={() => dispatch(setFiltersState(!filtersState))} className="clear-button">
-                    <FaTimes />
+                   <FiltersIcon/>
                 </button>
-      )}
-      {filtersState && <Filters/>}
+           
+             {filtersState && <Filters/>}
         </div>
-    )
-}
+    );
+};
 
-export { SearchInput }
+export { SearchInput };

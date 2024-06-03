@@ -1,39 +1,50 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import { FavoritesPage, Header, MainLogo, MainPage, Menu, Movies, SelectedMovie, SelectedMoviePage, SettingsPage, TrendsPage } from './components';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { FavoritesPage, Header, MainLogo, MainPage, Menu, NewPassword, ResetPassword, SearchPage, SelectedMovie, SelectedMoviePage, SettingsPage, SignIn, SignUp, TrendsPage } from './components';
 import './global.css';
 import { setTheme } from './redux/actionCreaters/uiActionCreaters';
-import { THEME_TYPES } from './types';
-const  App = () => {
+import { setUser } from './redux/actionCreaters/userActionCreators';
+import { THEME_TYPES, IStoreState } from './types';
 
-  const dispatch = useDispatch()
+const App = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: IStoreState) => state.user.user);
+  const data = localStorage.getItem("user");
+
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
+    if (localStorage.getItem("user")) {
+      const data = localStorage.getItem("user")!;
+      dispatch(setUser(JSON.parse(data)));
+    }
     if (savedTheme === THEME_TYPES.DARK) {
       dispatch(setTheme(savedTheme));
     }
-  }, []);
-  
+  }, [dispatch]);
+
+  console.log(user)
+
   return (
-   <>
-        <Routes>
-          <Route path='/'>
-            <Route path='movies'>
-              <Route path='home' element={<MainPage/>}></Route>
-              <Route path='trends' element={<TrendsPage/>}></Route>
-              <Route path='favorites' element={<FavoritesPage/>}></Route>
-              <Route path='settings' element={<SettingsPage/>}></Route>
-              <Route path=":id" element={<SelectedMoviePage/>}/>
-
-            </Route>
-
-          </Route>
-
-        </Routes>
-   </>
-  )
+    <>
+      <Routes>
+        <Route path='/' element={data ? <Navigate to="/movies/home" /> : <Navigate to="/signin" />} />
+        <Route path='signin' element={<SignIn />} />
+        <Route path='signup' element={<SignUp />} />
+        <Route path='reset' element={<ResetPassword />} />
+        <Route path='newpassword' element={data ? <NewPassword /> : <Navigate to="/signin" />} />
+        <Route path='movies'>
+          <Route path='home' element={data ? <MainPage /> : <Navigate to="/signin" />} />
+          <Route path='trends' element={data ? <TrendsPage /> : <Navigate to="/signin" />} />
+          <Route path='favorites' element={data ? <FavoritesPage /> : <Navigate to="/signin" />} />
+          <Route path='settings' element={data ? <SettingsPage /> : <Navigate to="/signin" />} />
+          <Route path=':id' element={data ? <SelectedMoviePage /> : <Navigate to="/signin" />} />
+          <Route path='search' element={data ? <SearchPage /> : <Navigate to="/signin" />} />
+        </Route>
+      </Routes>
+    </>
+  );
 }
 
 export default App;

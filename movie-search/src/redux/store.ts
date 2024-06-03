@@ -1,25 +1,28 @@
+// store.ts
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all } from 'redux-saga/effects';
 import { watcherMovies } from "./actionCreaters/moviesActionCreators";
+import { watcherUser } from "./actionCreaters/userActionCreators";
 import { moviesReducer } from "./reducers/moviesReducer";
 import { uiReducer } from "./reducers/uiReducer";
+import { userReducer } from "./reducers/userReducer";
 
-
-const middleWare = createSagaMiddleware()
+const middleWare = createSagaMiddleware();
 function* rootSaga(){
     yield all([
         watcherMovies(),
+        watcherUser(),
     ])
 }
-
-const store =  createStore(
+const store = createStore(
     combineReducers({
         movies: moviesReducer,
         ui: uiReducer,
+        user: userReducer,
     }),{},
     applyMiddleware(middleWare)
 );
 
-middleWare.run(rootSaga)
-export { store }
+middleWare.run(rootSaga);
+export { store };

@@ -174,7 +174,7 @@ const Filters = () =>{
         <div className="filtersBlock">
             <div className="filterBlockTitle">
                  <h1 className="titleFilters">Filters</h1>
-                 <button className="closeFiltersBtn" onClick={(e: any) => dispatch(setFiltersState(false))}>X</button>
+                 <button className={"closeFiltersBtn " + theme} onClick={(e: any) => dispatch(setFiltersState(false))}>X</button>
             </div>
            
             <h3 className="h3Filters">Sort by</h3>
@@ -188,7 +188,7 @@ const Filters = () =>{
                 checked={selectedOption === 'rating.imdb'}
                 onChange={handleOptionChange}
             />
-            <label htmlFor="sort-rating" className="sort-option-label">
+            <label htmlFor="sort-rating" className="sort-option-label sort-option-label-rating">
                 Rating
             </label>
 
@@ -201,12 +201,12 @@ const Filters = () =>{
                 checked={selectedOption === 'year'}
                 onChange={handleOptionChange}
             />
-            <label htmlFor="sort-year" className="sort-option-label">
+            <label htmlFor="sort-year" className="sort-option-label sort-option-label-year">
                 Year
             </label>
             </div>
-            <h3 className="h3Filters">Full or short movie name</h3>
-            <input className="settings-input" type="text"  placeholder="Your text"/>
+            {/* <h3 className="h3Filters">Full or short movie name</h3>
+            <input className="settings-input" type="text"  placeholder="Your text"/> */}
             <h3 className="h3Filters">Genre</h3>
             <Select
                 isMulti

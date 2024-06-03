@@ -1,32 +1,52 @@
 import { IMovieData, IMovieDataResponse } from "../../types";
-import { SET_MOVIES, SET_SELECTED_MOVIE } from "../actionTypes/moviesActionTypes";
+import { SET_MOVIES, SET_PAGE, SET_SELECTED_MOVIE, SET_TOTAL, SET_IS_SEARCH } from "../actionTypes/moviesActionTypes";
 
 const initialState: IMovieDataResponse = {
-    "docs": [] as IMovieData[],
-    "total": 10,
-    "limit": 10,
-    "page": 1,
-    "pages": 1
-  };
+    docs: [] as IMovieData[],
+    total: 0,
+    limit: 20,
+    page: 1,
+    pages: 1,
+    isSearch: false
+};
 
-const moviesReducer = (state = initialState, action: any) =>{
-    switch(action.type){
-        case SET_MOVIES:{
-            return({
+const moviesReducer = (state = initialState, action: any) => {
+    switch(action.type) {
+        case SET_PAGE: {
+            return {
+                ...state,
+                page: action.page
+            };
+        }
+        case SET_TOTAL: {
+            return {
+                ...state,
+                total: action.total,
+                pages: action.pages
+            };
+        }
+        case SET_MOVIES: {
+            return {
                 ...state,
                 docs: action.movies
-            })
+            };
         }
-        case SET_SELECTED_MOVIE:{
-            return({
+        case SET_SELECTED_MOVIE: {
+            return {
                 ...state,
                 movie: action.movie
-            })
+            };
         }
-        default:{
-            return state
+        case SET_IS_SEARCH: {
+            return {
+                ...state,
+                isSearch: action.isSearch
+            };
+        }
+        default: {
+            return state;
         }
     }
-}
+};
 
-export { moviesReducer }
+export { moviesReducer };
