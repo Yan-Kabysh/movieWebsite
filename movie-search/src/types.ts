@@ -20,10 +20,21 @@ interface ITansReducer{
     tab: TABS
 }
 
+interface IModal{
+  isOpen: boolean,
+  message: string,
+  status: string
+}
+
+interface IModalState{
+   modal: IModal
+}
+
 interface IStoreState{
     movies: IMovieDataResponse,
     ui: IUIState,
     user: IUserState,
+    modal: IModalState
 }
 
 interface IMovieData{ 
@@ -75,7 +86,8 @@ interface IMovieDataResponse{
     "pages": number
     movie?: ISelectedMovie
     search?: string,
-    isSearch?: boolean
+    isSearch?: boolean,
+    isFavorite?: boolean
 }
 
 interface ILoadMovies{
@@ -231,11 +243,12 @@ interface ISelectedMovie{
     "networks": string,
     "createdAt": string,
     "updatedAt": string,
-    "similarMovies": IMovieData[]
+    "similarMovies": IMovieData[],
   }
 
   interface IUserState {
     user: IUser
+    isLoadingSavedMovies?: boolean
 }
 interface IUser {
   id: number,
@@ -252,6 +265,12 @@ interface IChangePassword{
   interface RecomandationProps {
     data: IMovieData[]
   }
+
+interface IIds{
+  userId: number,
+  movieId: number
+}
+
 export type {
     IInput,
     IMovieData,
@@ -269,5 +288,8 @@ export type {
     IUserState,
     IUser,
     ISignUp,
-    IChangePassword
+    IChangePassword,
+    IIds,
+    IModalState,
+    IModal
 }

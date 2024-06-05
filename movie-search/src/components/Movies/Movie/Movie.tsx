@@ -7,7 +7,7 @@ const Movie = ({ data }: MovieProps) => {
     const ratingClass = rating ? ((rating) >= 7 ? "green" : (rating >= 5 ? "yellow" : "red")) : ""; // Добавлена проверка на существование рейтинга
     return (
         <div className="movie">
-               <p className={"rating " + ratingClass}>{rating || "-"}</p> {/* Добавлена проверка на существование рейтинга */}
+               <p className={"rating " + ratingClass}>{rating || "-"}</p> 
             {data.poster?.url === undefined || data.poster?.url === null ?
             <EmptyPoster/> :
             <img src={data.poster.url} alt={data.name} className="posterImage"/>

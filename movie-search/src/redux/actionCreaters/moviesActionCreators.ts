@@ -1,4 +1,4 @@
-import { LOAD_MOVIES, LOAD_SELECTED_MOVIE, SEARCH_MOVIES, SET_MOVIES, SET_PAGE, SET_SELECTED_MOVIE, SET_TOTAL, SET_IS_SEARCH } from "../actionTypes/moviesActionTypes";
+import { LOAD_MOVIES, LOAD_SELECTED_MOVIE, SEARCH_MOVIES, SET_MOVIES, SET_PAGE, SET_SELECTED_MOVIE, SET_TOTAL, SET_IS_SEARCH, FAVORITES_MOVIES } from "../actionTypes/moviesActionTypes";
 import { put, takeEvery, select } from "redux-saga/effects";
 import { ILoadMovies, IMovieData, IMovieDataResponse, ISearchData, ISelectedMovie } from "../../types";
 
@@ -42,6 +42,48 @@ const setIsSearch = (isSearch: boolean) => ({
     type: SET_IS_SEARCH,
     isSearch
 });
+
+const favoritesMovies = (ids: number[]) => ({
+    type: FAVORITES_MOVIES,
+    ids
+})
+
+function* fetchFavoritesMovies(action: any) {
+    const { ids } = action;
+    const page = 1;
+    const limit = 250;
+    const idParams = ids.map((id: string) => `id=${id}`).join('&');
+    if(idParams){
+
+    
+    const url = `https://api.kinopoisk.dev/v1.4/movie?page=${page}&limit=${limit}&${idParams}`;
+    
+    const response: Response = yield fetch(url, {
+        method: 'GET',
+        headers: {
+            //2VY0P72-C2QMW2W-PRA1W5W-SRSY3CV
+            // JMSSR28-GJA4VYC-JTRHZQR-S1MKV40
+            'X-API-KEY': 'JMSSR28-GJA4VYC-JTRHZQR-S1MKV40',
+            'accept': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        const data: IMovieDataResponse = yield response.json();
+        yield put(setMovies(data.docs));
+        yield put(setTotal(data.total, data.pages));
+        // yield put(setIsSearch(false));
+    } else {
+        console.error('Failed to fetch favorite movies', response.statusText);
+        // Обработка ошибки: возможно, стоит уведомить пользователя или предпринять иные действия
+    }
+}
+    else{
+        yield put(setMovies([]));
+
+    }
+}
+
 
 function* fetchSearchMovies(action: any) {
     yield put(setIsSearch(true));
@@ -108,9 +150,9 @@ function* fetchLoadMovies(action: any) {
     if (ratingStateFrom && ratingStateTo) {
         params['rating.imdb'] = `${ratingStateFrom}-${ratingStateTo}`;
     } else if (ratingStateFrom) {
-        params['rating.imdb'] = ratingStateFrom;
+        params['rating.imdb'] = `${ratingStateFrom}-10`;
     } else if (ratingStateTo) {
-        params['rating.imdb'] = ratingStateTo;
+        params['rating.imdb'] = `0-${ratingStateTo}`;
     }
 
     let url = buildUrl(baseUrl, params);
@@ -164,6 +206,8 @@ function* watcherMovies() {
     yield takeEvery(LOAD_MOVIES, fetchLoadMovies);
     yield takeEvery(SEARCH_MOVIES, fetchSearchMovies);
     yield takeEvery(LOAD_SELECTED_MOVIE, fetchLoadSelectedMovie);
+    yield takeEvery(FAVORITES_MOVIES, fetchFavoritesMovies);
+
 }
 
-export { watcherMovies, loadMovies, searchMovies, loadSelectedMovie, setSelectedMovie, setPage, setIsSearch };
+export { watcherMovies, loadMovies, searchMovies, loadSelectedMovie, setSelectedMovie, setPage, setIsSearch, favoritesMovies };

@@ -74,15 +74,15 @@ const SettingsComponent = () =>{
                 <div className="settings-input-grid-container">
                     <div className="settings-input-grid-container-item">
                         <h3 className="settings-h3">Password</h3>
-                        <input className="settings-input" onChange={(e: any)=>{setPassword(e.target.value)}} placeholder="Your password" value={password}/>
+                        <input className="settings-input" type="password" onChange={(e: any)=>{setPassword(e.target.value)}} placeholder="Your password" value={password}/>
                     </div> 
                     <div  className="settings-input-grid-container-item">
                         <h3 className="settings-h3">New password</h3>
-                        <input className="settings-input" onChange={(e: any)=>{setNewPassword(e.target.value)}} placeholder="New password" value={newPassword}/>
+                        <input className="settings-input" type="password" onChange={(e: any)=>{setNewPassword(e.target.value)}} placeholder="New password" value={newPassword}/>
                     </div>
                     <div  className="settings-input-grid-container-item">
                         <h3 className="settings-h3">Confirm password</h3>
-                        <input className="settings-input" onChange={(e: any)=>{setConfirmPassword(e.target.value)}} placeholder="Confirm password" value={confirmPassword}/>
+                        <input className="settings-input" type="password" onChange={(e: any)=>{setConfirmPassword(e.target.value)}} placeholder="Confirm password" value={confirmPassword}/>
                     </div>
                 </div>
                 <button className="settings-save-btm" onClick={changePasswordClick}>Save</button>

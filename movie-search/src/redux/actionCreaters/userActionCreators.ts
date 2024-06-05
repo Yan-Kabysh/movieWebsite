@@ -1,7 +1,10 @@
 // actionCreaters/userActionCreators.ts
 import { call, put, takeEvery } from "redux-saga/effects";
-import { IChangePassword, ISignUp, IUser } from "../../types";
-import { CHANGE_PASSWORD, CHANGE_USER_DATA, SET_USER, SIGN_IN_USER, SIGN_OUT, SIGN_UP_USER } from "../actionTypes/userActionTypes";
+import { IChangePassword, IIds, ISignUp, IUser } from "../../types";
+import { HIDE_MODAL, SHOW_MODAL } from "../actionTypes/modalActionTypes";
+import { IS_FAVORITE } from "../actionTypes/moviesActionTypes";
+import { CHANGE_PASSWORD, CHANGE_USER_DATA, CHECK_FAVORITES, DELETE_FAVORITE, GET_SAVED_MOVIES, LOADING_SAVED_MOVIES, SAVE_MOVIE, SET_USER, SIGN_IN_USER, SIGN_OUT, SIGN_UP_USER } from "../actionTypes/userActionTypes";
+import { favoritesMovies } from "./moviesActionCreators";
 
 const signUpUser = (userData: ISignUp, navigate: Function) => ({
     type: SIGN_UP_USER,
@@ -34,6 +37,109 @@ const signout = () =>({
     type: SIGN_OUT
 })
 
+const saveMovie = (ids: IIds) => ({
+    type: SAVE_MOVIE,
+    ids
+})
+
+const getSavedMovies = (userId: number) =>({
+    type: GET_SAVED_MOVIES,
+    userId
+})
+
+const loadingSavedMovies = () => ({
+    type: LOADING_SAVED_MOVIES
+});
+
+const checkFavorites = (userId: number, movieId: number) => ({
+    type: CHECK_FAVORITES,
+    userId,
+    movieId
+})
+
+const deleteFavorites = (userId: number, movieId: number) => ({
+    type: DELETE_FAVORITE,
+    userId,
+    movieId
+})
+
+const isFavorite = (isFavorite: boolean) =>({
+    type: IS_FAVORITE,
+    isFavorite
+})
+
+function* fetchDeleteFavorites(action: any) {
+    try {
+        const resp: Response = yield call(fetch, `http://localhost:3001/user_movies/${action.userId}/${action.movieId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        console.log("resp.status", resp.status)
+
+        if (resp.status === 200) {
+           
+           
+            yield put({ type: SHOW_MODAL, payload: { message: "The film was successfully deleted", status: 'success' } });
+        } else {
+            
+          
+            yield put({ type: SHOW_MODAL, payload: { message: "Error when deleting movie", status: 'error' } });
+        }
+    } catch (error) {
+      
+        yield put({ type: SHOW_MODAL, payload: { message: 'Error deleting movie', status: 'error' } });
+    } finally {
+        yield put({ type: HIDE_MODAL });
+    }
+}
+
+function* fetchCheckFavorites(action: any) {
+    if(action.userId === 0){
+        return
+    }
+    // yield put(loadingSavedMovies());
+    console.log("asdasdasdasdasdasda", action)
+    const { userId, movieId } = action
+    const resp: Response = yield fetch(`http://localhost:3001/user_movies/${userId}/${movieId}`);
+    if (resp.status === 200) {
+      const data: boolean = yield resp.json()
+      console.log(data) 
+      yield put (isFavorite(data))
+    }
+}
+
+function* fetchGetSavedMovies(action: any) {
+    // yield put(loadingSavedMovies());
+    console.log(action)
+    const resp: Response = yield fetch(`http://localhost:3001/user_movies/${action.userId}`);
+    if (resp.status === 200) {
+      const data: number[] = yield resp.json()
+      console.log(data)
+    
+      yield put(favoritesMovies(data))
+    }
+    yield put(loadingSavedMovies());
+
+}
+
+function* fetchSaveMovie(action: any) {
+    const resp: Response = yield fetch('http://localhost:3001/user_movies', {
+        method: 'POST',
+        body: JSON.stringify(action.ids),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (resp.status === 201) {
+        yield put({ type: SHOW_MODAL, payload: { message: "The movie was successfully saved", status: "success" } });
+    } else if (resp.status === 400) {
+        yield put({ type: SHOW_MODAL, payload: { message: "The movie has already been added to your favorites", status: "error" } });
+    }
+}
+
 function* fetchChangePassword(action: any) {
     const resp: Response = yield fetch('http://localhost:3001/update_password', {
         method: 'POST',
@@ -45,7 +151,7 @@ function* fetchChangePassword(action: any) {
     if (resp.status === 200) {
       
         console.log("fetchChangePassword");
-  
+        yield put({ type: SHOW_MODAL, payload: { message: "Password changed successfully", status: "success" } });
 
     }
 }
@@ -62,7 +168,7 @@ function* fetchChangeUserData(action: any) {
         const data: IUser = yield resp.json();
         console.log("fetchChangeUserData", data);
         localStorage.setItem("user", JSON.stringify({user: {...data}}));
-
+        yield put({ type: SHOW_MODAL, payload: { message: "Data changed successfully", status: "success" } });
     }
 }
 
@@ -122,7 +228,11 @@ function* watcherUser() {
     yield takeEvery(SIGN_IN_USER, signIn);
     yield takeEvery(CHANGE_USER_DATA, fetchChangeUserData);
     yield takeEvery(CHANGE_PASSWORD, fetchChangePassword);
+    yield takeEvery(SAVE_MOVIE, fetchSaveMovie);
+    yield takeEvery(GET_SAVED_MOVIES, fetchGetSavedMovies);
+    yield takeEvery(CHECK_FAVORITES, fetchCheckFavorites);
+    yield takeEvery(DELETE_FAVORITE, fetchDeleteFavorites);
 
 }
 
-export { signUpUser, watcherUser, setUser, signInUser, changeUserData, changePassword, signout };
+export { signUpUser, watcherUser, setUser, signInUser, changeUserData, changePassword, signout, saveMovie, getSavedMovies, checkFavorites, deleteFavorites };

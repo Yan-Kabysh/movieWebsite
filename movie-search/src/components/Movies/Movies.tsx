@@ -6,13 +6,15 @@ import { IMovieData, IStoreState } from "../../types";
 import { Movie } from "./Movie";
 import "./Movies.css"
 
-const Movies = ({ limit, page, year, rating, votes}: any) => {
+const Movies = ({ limit, page, year, rating, votes, flag = false}: any) => {
    
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(loadMovies({ limit, page, year, rating, votes }));
+        if(!flag){
+            dispatch(loadMovies({ limit, page, year, rating, votes }));
+        }
     }, [limit, page]);
 
     const moviesData = useSelector((state: IStoreState) => state.movies.docs);

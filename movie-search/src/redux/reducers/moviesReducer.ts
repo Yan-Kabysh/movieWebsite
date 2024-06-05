@@ -1,5 +1,5 @@
-import { IMovieData, IMovieDataResponse } from "../../types";
-import { SET_MOVIES, SET_PAGE, SET_SELECTED_MOVIE, SET_TOTAL, SET_IS_SEARCH } from "../actionTypes/moviesActionTypes";
+import { IMovieData, IMovieDataResponse, ISelectedMovie } from "../../types";
+import { SET_MOVIES, SET_PAGE, SET_SELECTED_MOVIE, SET_TOTAL, SET_IS_SEARCH, IS_FAVORITE } from "../actionTypes/moviesActionTypes";
 
 const initialState: IMovieDataResponse = {
     docs: [] as IMovieData[],
@@ -7,7 +7,8 @@ const initialState: IMovieDataResponse = {
     limit: 20,
     page: 1,
     pages: 1,
-    isSearch: false
+    isSearch: false,
+    isFavorite: false
 };
 
 const moviesReducer = (state = initialState, action: any) => {
@@ -41,6 +42,12 @@ const moviesReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 isSearch: action.isSearch
+            };
+        }
+        case IS_FAVORITE: {
+            return {
+                ...state,
+                isFavorite: action.isFavorite
             };
         }
         default: {

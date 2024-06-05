@@ -83,27 +83,84 @@ app.get('/users', (req, res) => {
   });
 });
 
+
+
 app.post('/user_movies', (req, res) => {
-  const { user_id, movie_id } = req.body;
-  const sql = 'INSERT INTO user_movies (user_id, movie_id) VALUES (?, ?)';
-  db.query(sql, [user_id, movie_id], (err, result) => {
-    if (err) {
-      return res.status(500).send(err);
+  const { userId, movieId } = req.body;
+
+  // Проверка на наличие уже существующей записи
+  const checkSql = 'SELECT * FROM favorites WHERE user_id = ? AND movie_id = ?';
+  db.query(checkSql, [userId, movieId], (checkErr, checkResults) => {
+    if (checkErr) {
+      return res.status(500).send(checkErr);
     }
-    res.status(201).send({ user_id, movie_id });
+
+    if (checkResults.length > 0) {
+      // Если запись уже существует, возвращаем соответствующий ответ
+      return res.status(400).send({ message: 'Этот фильм уже сохранен.' });
+    }
+
+    // Если записи нет, добавляем новую
+    const insertSql = 'INSERT INTO favorites (user_id, movie_id) VALUES (?, ?)';
+    db.query(insertSql, [userId, movieId], (insertErr, insertResult) => {
+      if (insertErr) {
+        return res.status(500).send(insertErr);
+      }
+      res.status(201).send({ userId, movieId });
+    });
   });
 });
 
+app.get('/user_movies/:userId/:movieId', (req, res) => {
+  const { userId, movieId } = req.params;
+  console.log(userId, movieId)
+  const sql = 'SELECT * FROM favorites WHERE user_id = ? AND movie_id = ?';
+  
+  db.query(sql, [userId, movieId], (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    console.log(results)
+    console.log(res)
+
+    if (results.length > 0) {
+      return res.status(200).send(true); // Вернуть true, если фильм в избранном
+    } else {
+      return res.status(200).send(false); // Вернуть false, если фильм не в избранном
+    }
+  });
+});
+
+
+app.delete('/user_movies/:userId/:movieId', (req, res) => {
+  const { userId, movieId } = req.params;
+  const sql = 'DELETE FROM favorites WHERE user_id = ? AND movie_id = ?';
+  
+  db.query(sql, [userId, movieId], (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (results.affectedRows === 0) {
+      return res.status(404).send({ message: 'Favorite not found' });
+    }
+    res.status(200).send({ message: 'Favorite deleted successfully' });
+  });
+});
+
+
 app.get('/user_movies/:userId', (req, res) => {
   const userId = req.params.userId;
-  const sql = 'SELECT movie_id FROM user_movies WHERE user_id = ?';
+  const sql = 'SELECT movie_id FROM favorites WHERE user_id = ?';
   db.query(sql, [userId], (err, results) => {
     if (err) {
       return res.status(500).send(err);
     }
-    res.send(results);
+
+    const movieIds = results.map(result => result.movie_id);
+    res.send(movieIds);
   });
 });
+
 
 app.post('/update_user', (req, res) => {
   const { id, username, email } = req.body;

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { FavoritesPage, Header, MainLogo, MainPage, Menu, NewPassword, ResetPassword, SearchPage, SelectedMovie, SelectedMoviePage, SettingsPage, SignIn, SignUp, TrendsPage } from './components';
+import { ModalWindow } from './components/ModalWindow/ModalWindow';
 import './global.css';
 import { setTheme } from './redux/actionCreaters/uiActionCreaters';
 import { setUser } from './redux/actionCreaters/userActionCreators';
@@ -11,7 +12,7 @@ const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: IStoreState) => state.user.user);
   const data = localStorage.getItem("user");
-
+  const location = useLocation();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -23,6 +24,10 @@ const App = () => {
       dispatch(setTheme(savedTheme));
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, [location.pathname]);
 
   console.log(user)
 
@@ -43,6 +48,7 @@ const App = () => {
           <Route path='search' element={data ? <SearchPage /> : <Navigate to="/signin" />} />
         </Route>
       </Routes>
+      <ModalWindow />
     </>
   );
 }

@@ -4,6 +4,7 @@ import createSagaMiddleware from "redux-saga";
 import { all } from 'redux-saga/effects';
 import { watcherMovies } from "./actionCreaters/moviesActionCreators";
 import { watcherUser } from "./actionCreaters/userActionCreators";
+import modalReducer from "./reducers/modalReducer";
 import { moviesReducer } from "./reducers/moviesReducer";
 import { uiReducer } from "./reducers/uiReducer";
 import { userReducer } from "./reducers/userReducer";
@@ -20,6 +21,7 @@ const store = createStore(
         movies: moviesReducer,
         ui: uiReducer,
         user: userReducer,
+        modal: modalReducer,
     }),{},
     applyMiddleware(middleWare)
 );
